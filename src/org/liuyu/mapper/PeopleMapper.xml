@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.liuyu.mapper.PeopleMapper">
+  <resultMap id="BaseResultMap" type="org.liuyu.entity.People">
+    <id column="stuno" jdbcType="INTEGER" property="stuno" />
+    <result column="stuname" jdbcType="VARCHAR" property="stuname" />
+    <result column="stuage" jdbcType="VARCHAR" property="stuage" />
+    <result column="graname" jdbcType="VARCHAR" property="graname" />
+    <result column="stusex" jdbcType="INTEGER" property="stusex" />
+    <result column="homeaddress" jdbcType="VARCHAR" property="homeaddress" />
+    <result column="schooladdress" jdbcType="VARCHAR" property="schooladdress" />
+    <result column="cardid" jdbcType="INTEGER" property="cardid" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stuno, stuname, stuage, graname, stusex, homeaddress, schooladdress, cardid, classid
+  </sql>
+  <select id="selectByExample" parameterType="org.liuyu.entity.PeopleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from People
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from People
+    where stuno = #{stuno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from People
+    where stuno = #{stuno,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.liuyu.entity.PeopleExample">
+    delete from People
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.liuyu.entity.People">
+    insert into People (stuno, stuname, stuage, 
+      graname, stusex, homeaddress, 
+      schooladdress, cardid, classid
+      )
+    values (#{stuno,jdbcType=INTEGER}, #{stuname,jdbcType=VARCHAR}, #{stuage,jdbcType=VARCHAR}, 
+      #{graname,jdbcType=VARCHAR}, #{stusex,jdbcType=INTEGER}, #{homeaddress,jdbcType=VARCHAR}, 
+      #{schooladdress,jdbcType=VARCHAR}, #{cardid,jdbcType=INTEGER}, #{classid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.liuyu.entity.People">
+    insert into People
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuno != null">
+        stuno,
+      </if>
+      <if test="stuname != null">
+        stuname,
+      </if>
+      <if test="stuage != null">
+        stuage,
+      </if>
+      <if test="graname != null">
+        graname,
+      </if>
+      <if test="stusex != null">
+        stusex,
+      </if>
+      <if test="homeaddress != null">
+        homeaddress,
+      </if>
+      <if test="schooladdress != null">
+        schooladdress,
+      </if>
+      <if test="cardid != null">
+        cardid,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuno != null">
+        #{stuno,jdbcType=INTEGER},
+      </if>
+      <if test="stuname != null">
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuage != null">
+        #{stuage,jdbcType=VARCHAR},
+      </if>
+      <if test="graname != null">
+        #{graname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        #{stusex,jdbcType=INTEGER},
+      </if>
+      <if test="homeaddress != null">
+        #{homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="schooladdress != null">
+        #{schooladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.liuyu.entity.PeopleExample" resultType="java.lang.Long">
+    select count(*) from People
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update People
+    <set>
+      <if test="record.stuno != null">
+        stuno = #{record.stuno,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuname != null">
+        stuname = #{record.stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuage != null">
+        stuage = #{record.stuage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graname != null">
+        graname = #{record.graname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stusex != null">
+        stusex = #{record.stusex,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeaddress != null">
+        homeaddress = #{record.homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schooladdress != null">
+        schooladdress = #{record.schooladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardid != null">
+        cardid = #{record.cardid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null">
+        classid = #{record.classid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update People
+    set stuno = #{record.stuno,jdbcType=INTEGER},
+      stuname = #{record.stuname,jdbcType=VARCHAR},
+      stuage = #{record.stuage,jdbcType=VARCHAR},
+      graname = #{record.graname,jdbcType=VARCHAR},
+      stusex = #{record.stusex,jdbcType=INTEGER},
+      homeaddress = #{record.homeaddress,jdbcType=VARCHAR},
+      schooladdress = #{record.schooladdress,jdbcType=VARCHAR},
+      cardid = #{record.cardid,jdbcType=INTEGER},
+      classid = #{record.classid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.liuyu.entity.People">
+    update People
+    <set>
+      <if test="stuname != null">
+        stuname = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuage != null">
+        stuage = #{stuage,jdbcType=VARCHAR},
+      </if>
+      <if test="graname != null">
+        graname = #{graname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        stusex = #{stusex,jdbcType=INTEGER},
+      </if>
+      <if test="homeaddress != null">
+        homeaddress = #{homeaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="schooladdress != null">
+        schooladdress = #{schooladdress,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null">
+        cardid = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stuno = #{stuno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.liuyu.entity.People">
+    update People
+    set stuname = #{stuname,jdbcType=VARCHAR},
+      stuage = #{stuage,jdbcType=VARCHAR},
+      graname = #{graname,jdbcType=VARCHAR},
+      stusex = #{stusex,jdbcType=INTEGER},
+      homeaddress = #{homeaddress,jdbcType=VARCHAR},
+      schooladdress = #{schooladdress,jdbcType=VARCHAR},
+      cardid = #{cardid,jdbcType=INTEGER},
+      classid = #{classid,jdbcType=INTEGER}
+    where stuno = #{stuno,jdbcType=INTEGER}
+  </update>
+</mapper>
